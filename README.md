@@ -4,7 +4,7 @@ Karma and Protractor are used for frontend testing, while NUnit is used for back
 
 # Running the project
 Project built in Visual Studio 2019.
-Recommend to open **HackerNews Web Application.sln** in Visual Studio and compile and run that way.
+Recommend to open **HackerNews Web Application.sln** in Visual Studio and compile and run that way. Building the project will automatically install all required npm packages.
 Included basic instruction for the use of the frontend without backend support below.
 
 # Build
