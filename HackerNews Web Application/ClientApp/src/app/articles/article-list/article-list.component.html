@@ -1,0 +1,39 @@
+<div class="row py-4" style="min-height:500px;">
+  <div class="col-12 col-md-6 mb-4">
+    <div class="btn-group btn-group-toggle article-buttons" data-toggle="buttons">
+      <label class="btn btn-secondary newBtn">
+        <input type="radio" name="sortType" value="new" id="new" (change)="updateSort($event.target.value)" [attr.disabled]="feedLoading ? '' : null"> New Stories
+      </label>
+      <label class="btn btn-secondary topBtn">
+        <input type="radio" name="sortType" value="top" id="top" (change)="updateSort($event.target.value)" [attr.disabled]="feedLoading ? '' : null"> Top Stories
+      </label>
+      <label class="btn btn-secondary bestBtn">
+        <input type="radio" name="sortType" value="best" id="best" (change)="updateSort($event.target.value)" [attr.disabled]="feedLoading ? '' : null"> Best Stories
+      </label>
+    </div>
+  </div>
+  <div class="col-12 ml-auto col-md-4 mb-4">
+    <div class="md-form mt-0">
+      <input type="text" name="searchBar" id="searchBar" class="form-control searchBar" placeholder="Search" aria-label="Search" [(ngModel)]="searchBar" (input)="onSearch($event.target.value)" [attr.disabled]="feedLoading ? '' : null">
+    </div>
+  </div>
+  <div *ngIf="!articles" class="col-12">
+    No Results Found
+  </div>
+
+  <div *ngFor="let article of articles | paginate: { itemsPerPage: 20, currentPage: p }; let i = index" class="col-12 col-md-6 mb-4 article">
+    <div class="card p-2 h-100">
+      <p class="h-75">{{i+1*(10*(p-1))+1}}. <a href="{{article.url}}" class="articleLink" target="_window">{{article.title}}</a></p>
+      <span>{{article.score}} points by <a href="https://news.ycombinator.com/user?id={{article.by}}" target="_window">{{article.by}}</a> | {{article.descendants}} comments</span>
+    </div>
+  </div>
+
+  <div class="col-12 text-center mt-4">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+  <div *ngIf="feedLoading" class="col-12 text-center fixed-top" style="top:50%">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+</div>
